@@ -79,7 +79,7 @@ const CreateForm = () => {
               type="text"
               name="password"
               id="password"
-              placeholder="Password"
+              placeholder="Require Password"
               className="p-3 text-xs placeholder-(--white) focus:outline-0"
             />
           </div>
