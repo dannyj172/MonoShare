@@ -24,9 +24,6 @@ const Features = () => {
                 width="1.5em"
                 className="stroke-(--main-light-blue)"
               >
-                <desc>
-                  User Shield Streamline Icon: https://streamlinehq.com
-                </desc>
                 <path d="M6 21v-2a4 4 0 0 1 4 -4h2" stroke-width="2"></path>
                 <path
                   d="M22 16c0 4 -2.5 6 -3.5 6S15 20 15 16c1 0 2.5 -0.5 3.5 -1.5 1 1 2.5 1.5 3.5 1.5z"
@@ -59,7 +56,6 @@ const Features = () => {
                 width="1.5em"
                 className="stroke-(--main-light-blue)"
               >
-                <desc>Cog Streamline Icon: https://streamlinehq.com</desc>
                 <g id="cog--work-loading-cog-gear-settings-machine">
                   <path
                     id="Vector"
@@ -102,7 +98,6 @@ const Features = () => {
                 width="1.5em"
                 className="stroke-(--main-light-blue)"
               >
-                <desc>Eraser Streamline Icon: https://streamlinehq.com</desc>
                 <path
                   d="M19 20H8.5l-4.21 -4.3a1 1 0 0 1 0 -1.41l10 -10a1 1 0 0 1 1.41 0l5 5a1 1 0 0 1 0 1.41L11.5 20"
                   stroke-width="2"
@@ -131,7 +126,6 @@ const Features = () => {
                 width="1.5em"
                 className="stroke-(--main-light-blue)"
               >
-                <desc>Key Line Streamline Icon: https://streamlinehq.com</desc>
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"

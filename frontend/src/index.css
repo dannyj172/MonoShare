@@ -73,7 +73,7 @@
   }
 
   .input-box {
-    @apply rounded-sm border-2 border-(--main-dark-blue-40) bg-[#04121C] flex items-center focus:border-(--main-dark-blue-70) focus-within:border-(--main-dark-blue-70) transition-colors duration-300 ease-in-out;
+    @apply rounded-sm border-3 border-(--main-dark-blue-40) bg-[#04121C] flex items-center focus:border-(--main-dark-blue-70) focus-within:border-(--main-dark-blue-70) transition-colors duration-300 ease-in-out;
   }
 
   .checkbox {

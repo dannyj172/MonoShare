@@ -1,7 +1,7 @@
 const Hero = () => {
   return (
     <main className="text-center mt-75 mb-100 z-10">
-      <div className="mb-23 relative">
+      <div className="mb-23 relative cursor-default">
         <div className="hero-glow" />
         <h1 className="text-5xl mb-3 z-10 blur-[0.3px] text-shadow-[0_0_10px_rgb(238_238_238/0.3)]">
           Your Shared Secret
@@ -12,7 +12,7 @@ const Hero = () => {
       </div>
 
       <div className="flex flex-col justify-center items-center gap-5">
-        <p className="text-(--gray) text-lg electrolize blur-[0.5px]">
+        <p className="text-(--gray) text-lg electrolize blur-[0.5px] cursor-default">
           The safest choice for discrete information sharing.
         </p>
 
@@ -21,7 +21,7 @@ const Hero = () => {
           <svg
             stroke="currentColor"
             fill="none"
-            strokeWidth="2"
+            strokeWidth="3"
             viewBox="0 0 24 24"
             strokeLinecap="round"
             strokeLinejoin="round"
