@@ -3,8 +3,8 @@ const Features = () => {
     <section className="flex flex-col items-center mb-50">
       <h1 className="text-3xl mb-3 arvo">We do it right.</h1>
       <p className="electrolize w-135 text-center mb-15 text-(--gray)">
-        Monoshare keeps your secret private from start to finish and creates a
-        better way to send passwords, tokens, and private messages.
+        Monoshare keeps your secret private from start to finish, creating a
+        better way to send passwords, tokens and private messages.
       </p>
 
       <div>

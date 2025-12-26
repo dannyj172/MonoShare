@@ -104,9 +104,9 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -20%); /* tweak vertical offset as needed */
-    width: 140vw; /* slight overflow ensures full bleed on all screens */
-    height: 120px; /* adjust height to match visual */
+    transform: translate(-50%, -20%);
+    width: 140vw;
+    height: 120px;
     background: radial-gradient(
       ellipse at center,
       rgba(74, 155, 218, 0.2) 60%,
@@ -128,10 +128,10 @@
   }
 
   .glow-white-default {
-    @apply -top-70 opacity-40 absolute h-100  w-0 z-20;
+    @apply -top-60 opacity-0 absolute h-100  w-0 z-20;
     transform: rotate(20deg);
     box-shadow: 0px 0px 200px 25px var(--white);
-    animation: spotlight-glow-white 8s linear infinite alternate;
+    animation: spotlight-glow-white 12s linear infinite alternate;
   }
 
   .delayed-white-glow {
@@ -141,8 +141,8 @@
   .glow-blue-default {
     @apply -top-60 absolute h-100 w-0 opacity-10 z-20;
     transform: rotate(20deg);
-    box-shadow: 0px 0px 130px 80px var(--main-light-blue);
-    animation: spotlight-glow-blue 6s linear infinite alternate;
+    box-shadow: 0px 0px 100px 100px var(--main-light-blue);
+    animation: spotlight-glow-blue 7s linear infinite alternate;
   }
 
   .delayed-blue-glow {
@@ -150,55 +150,56 @@
   }
 
   .glow-middle {
-    @apply left-[51vw] -top-10 opacity-30 absolute h-100  w-0 z-20;
+    @apply left-[51vw] -top-10 opacity-0 absolute h-100  w-0 z-20;
     transform: rotate(10deg);
-    box-shadow: 0px 0px 600px 100px var(--main-light-blue);
+    box-shadow: 0px 0px 600px 160px var(--main-light-blue);
     animation-delay: 500ms;
-    animation: spotlight-glow-middle 6s linear infinite alternate;
+    animation: spotlight-glow-middle 7s linear infinite alternate;
   }
 
   @keyframes spotlight-glow-white {
     0% {
       opacity: 0.1;
-      box-shadow: -30px 0px 200px 40px var(--white);
+      transform: translate(100px, -180px);
     }
     50% {
-      opacity: 0.4;
-      box-shadow: -15px 0px 200px 25px var(--white);
+      opacity: 0.3;
+    }
+    80% {
+      transform: translate(20px, 0px);
     }
     100% {
       opacity: 0.5;
-      box-shadow: 0px 0px 200px 30px var(--white);
     }
   }
 
   @keyframes spotlight-glow-middle {
     0% {
+      opacity: 0.1;
+      transform: translate(30px, -180px);
+    }
+    30% {
       opacity: 0.2;
-      box-shadow: 60px -50px 600px 300px var(--main-light-blue);
     }
     50% {
       opacity: 0.3;
-      box-shadow: 30px -30px 600px 100px var(--main-light-blue);
+      transform: translate(10px, -50px);
     }
     100% {
-      opacity: 0.4;
-      box-shadow: -10px 0px 600px 110px var(--main-light-blue);
+      opacity: 0.5;
     }
   }
 
   @keyframes spotlight-glow-blue {
     0% {
-      opacity: 0.05;
-      box-shadow: 60px -60px 130px 400px var(--main-light-blue);
+      opacity: 0;
+      transform: translate(30px, -180px);
     }
     50% {
       opacity: 0.1;
-      box-shadow: 20px -20px 130px 200px var(--main-light-blue);
     }
     100% {
       opacity: 0.2;
-      box-shadow: -10px 5px 130px 90px var(--main-light-blue);
     }
   }
 
