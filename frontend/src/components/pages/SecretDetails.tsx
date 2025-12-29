@@ -145,6 +145,17 @@ const SecretDetails = () => {
         >
           Your skype password is 123123!
         </textarea>
+        <div className="flex ml-auto gap-5">
+          <button className="noto-sans w-25 py-2.5 rounded-md mt-5 bg-(--main-dark-blue-40) cursor-pointer hover:bg-(--main-dark-blue-70)">
+            Cancel
+          </button>
+          <button className="noto-sans w-25 py-2.5 rounded-md mt-5 bg-red-500 cursor-pointer">
+            Confirm
+          </button>
+          {/* <button className="noto-sans w-25 py-2.5 rounded-md mt-5 bg-red-500 cursor-pointer">
+            Erase
+          </button> */}
+        </div>
       </div>
 
       {/* Timeline */}
@@ -196,7 +207,7 @@ const SecretDetails = () => {
         <div className="flex items-center gap-4">
           <div className="rounded-3xl border-4 border-(--main-light-blue) w-16 h-16 flex justify-center items-center overflow-hidden relative">
             <div
-              className="bg-blue-200/20 absolute bottom-0 w-20 h-[60%] flex justify-center items-center wave-animation outline-1"
+              className="bg-blue-200/20 absolute bottom-0 w-20 h-[30%] flex justify-center items-center wave-animation outline-1"
               style={{
                 clipPath:
                   "polygon(100% 100%, 0% 100% , 0.00% 15.19%, 2.00% 14.74%, 4.00% 14.16%, 6.00% 13.46%, 8.00% 12.68%, 10.00% 11.83%, 12.00% 10.95%, 14.00% 10.08%, 16.00% 9.23%, 18.00% 8.44%, 20.00% 7.74%, 22.00% 7.15%, 24.00% 6.70%, 26.00% 6.40%, 28.00% 6.26%, 30.00% 6.28%, 32.00% 6.47%, 34.00% 6.82%, 36.00% 7.32%, 38.00% 7.94%, 40.00% 8.66%, 42.00% 9.47%, 44.00% 10.33%, 46.00% 11.22%, 48.00% 12.09%, 50.00% 12.92%, 52.00% 13.68%, 54.00% 14.34%, 56.00% 14.89%, 58.00% 15.29%, 60.00% 15.54%, 62.00% 15.62%, 64.00% 15.55%, 66.00% 15.30%, 68.00% 14.90%, 70.00% 14.37%, 72.00% 13.71%, 74.00% 12.95%, 76.00% 12.12%, 78.00% 11.25%, 80.00% 10.37%, 82.00% 9.50%, 84.00% 8.69%, 86.00% 7.96%, 88.00% 7.34%, 90.00% 6.84%, 92.00% 6.48%, 94.00% 6.29%, 96.00% 6.26%, 98.00% 6.39%, 100.00% 6.69%)",
@@ -223,6 +234,33 @@ const SecretDetails = () => {
               <span className="text-green-500">6 days 12 hours</span>
             </h1>
             <p className="text-(--gray)">04/01/2026, 8:39 PM</p>
+          </div>
+        </div>
+
+        <div className="opacity-70 border-l-2 border-red-400/60 h-12 ml-8 border-dashed w-3 " />
+
+        <div className="flex items-center gap-4">
+          <div className="rounded-3xl border-4 border-red-500 w-16 h-16 flex justify-center items-center overflow-hidden relative shadow-[0px_0px_30px_1px_#fb2c3659]">
+            <div className="bg-red-500/20 absolute bottom-0 w-20 h-full flex justify-center items-center outline-1" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              id="Remove-Bold--Streamline-Ultimate"
+              height="24"
+              width="24"
+              className="z-20"
+            >
+              <desc>Remove Bold Streamline Icon: https://streamlinehq.com</desc>
+              <path
+                d="M22.66 5.58a1.5 1.5 0 0 0 0 -2.12l-2.12 -2.12a1.49 1.49 0 0 0 -2.12 0l-6.24 6.24a0.27 0.27 0 0 1 -0.36 0L5.58 1.34a1.49 1.49 0 0 0 -2.12 0L1.34 3.46a1.5 1.5 0 0 0 0 2.12l6.24 6.24a0.25 0.25 0 0 1 0 0.36l-6.24 6.24a1.5 1.5 0 0 0 0 2.12l2.12 2.12a1.49 1.49 0 0 0 2.12 0l6.24 -6.24a0.27 0.27 0 0 1 0.36 0l6.24 6.24a1.47 1.47 0 0 0 1.06 0.44 1.45 1.45 0 0 0 1.06 -0.44l2.12 -2.12a1.5 1.5 0 0 0 0 -2.12l-6.24 -6.24a0.25 0.25 0 0 1 0 -0.36Z"
+                fill="#fb2c36"
+                stroke-width="1"
+              ></path>
+            </svg>
+          </div>
+          <div className="flex flex-col">
+            <h1 className="electrolize text-red-500">Expired</h1>
+            <p className="text-red-400/50">04/01/2026, 8:39 PM</p>
           </div>
         </div>
 
