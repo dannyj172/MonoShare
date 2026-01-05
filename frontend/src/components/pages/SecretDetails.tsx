@@ -2,7 +2,11 @@ import { useState } from "react";
 import BackButton from "../partials/BackButton";
 
 const SecretDetails = () => {
+  const secretURL =
+    "https://monoshare.com/secret/nuxdamed47motnw65snwdvwz93l8i7r";
+
   const [copyClicked, setCopyClicked] = useState(false);
+  const [eraseConfirmation, setEraseConfirmation] = useState(false);
   return (
     <div className="flex flex-col w-fit md:min-w-180 mx-auto pt-40 p-5 max-w-19/20">
       <div className="flex items-start w-full ml-2 relative mb-5">
@@ -39,10 +43,13 @@ const SecretDetails = () => {
         } h-fit`}
       >
         <p className="arvo text-nowrap overflow-hidden text-sm sm:text-lg w-full h-fit px-5 bg-transparent">
-          https://monoshare.com/secret/nuxdamed47motnw65snwdvwz93l8i7r
+          {secretURL}
         </p>
         <div
-          onClick={() => setCopyClicked(true)}
+          onClick={() => {
+            navigator.clipboard.writeText(secretURL);
+            setCopyClicked(true);
+          }}
           className={`group cursor-pointer h-12 w-15 border-3 border-hidden flex items-center justify-center rounded-r-[3px] ${
             copyClicked ? "bg-green-500 " : " bg-(--main-dark-blue-40)"
           }`}
@@ -127,15 +134,27 @@ const SecretDetails = () => {
           Your skype password is 123123!
         </textarea>
         <div className="flex ml-auto gap-5">
-          <button className="noto-sans w-25 py-2.5 rounded-md mt-5 bg-(--main-dark-blue-40) cursor-pointer hover:bg-(--main-dark-blue-70)">
-            Cancel
-          </button>
-          <button className="noto-sans w-25 py-2.5 rounded-md mt-5 bg-red-500 cursor-pointer">
-            Confirm
-          </button>
-          {/* <button className="noto-sans w-25 py-2.5 rounded-md mt-5 bg-red-500 cursor-pointer">
-            Erase
-          </button> */}
+          {eraseConfirmation && (
+            <>
+              <button
+                onClick={() => setEraseConfirmation(false)}
+                className="noto-sans w-25 py-2.5 rounded-md mt-5 bg-(--main-dark-blue-40) cursor-pointer hover:bg-(--main-dark-blue-70)"
+              >
+                Cancel
+              </button>
+              <button className="noto-sans w-25 py-2.5 rounded-md mt-5 bg-red-500 cursor-pointer">
+                Confirm
+              </button>
+            </>
+          )}
+          {!eraseConfirmation && (
+            <button
+              onClick={() => setEraseConfirmation(true)}
+              className="noto-sans w-25 py-2.5 rounded-md mt-5 bg-red-500 cursor-pointer"
+            >
+              Erase
+            </button>
+          )}
         </div>
       </div>
 
@@ -245,7 +264,7 @@ const SecretDetails = () => {
           </div>
         </div>
 
-        <div className="opacity-70 border-l-2 border-(--gray) h-12 ml-8 border-dashed w-3 " />
+        <div className="opacity-70 border-l-2 border-(--main-light-blue) h-12 ml-8 border-dashed w-3 " />
 
         <div className=" flex items-center gap-4">
           <div className="rounded-3xl border-4 border-(--main-light-blue) w-16 h-16 flex justify-center items-center overflow-hidden relative shadow-[0px_0px_30px_3px_#76c4ff] animate-glow">

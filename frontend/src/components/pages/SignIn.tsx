@@ -14,7 +14,7 @@ const SignIn = () => {
         <h1 className="mx-auto text-3xl ">Welcome</h1>
         <h2 className="text-2xl noto-sans mt-7 mb-1">Sign In</h2>
         <p className="text-sm text-(--gray) noto-sans">
-          Access your account to unlock even more features.
+          Enter your account to access all features.
         </p>
         <form action="" method="post">
           <div className="flex flex-col noto-sans mt-6 gap-1">
