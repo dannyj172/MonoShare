@@ -1,0 +1,38 @@
+enum SecretStatus {
+    ACTIVE
+    VIEWED
+    EXPIRED
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mongodb"
+    // url      = env("DATABASE_URL")
+}
+
+model User {
+    id           String   @id @default(auto()) @map("_id") @db.ObjectId
+    email        String   @unique
+    ownedSecrets Secret[] @relation("UserSecrets")
+}
+
+model Secret {
+    id        String       @id @default(auto()) @map("_id") @db.ObjectId
+    text      String
+    receiver  String?
+    status    SecretStatus
+    // expired   Boolean
+    expiresAt DateTime
+    viewedAt  DateTime?
+    creatorId String       @db.ObjectId
+    creator   User         @relation("UserSecrets", fields: [creatorId], references: [id])
+    createdAt DateTime     @default(now())
+    updatedAt DateTime     @updatedAt
+
+    @@index([creatorId, status])
+}
+
+// creating secrets will be done by injecting userId with an auth middleware

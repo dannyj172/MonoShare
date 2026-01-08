@@ -123,7 +123,6 @@ const SecretDetails = () => {
       </div>
       <div className="flex flex-col">
         <div className="flex electrolize px-5 pt-7 pb-1 text-xs sm:text-sm text-(--gray)">
-          {/* careful/exclamation point/warning svg */}
           <p>You will only see this once.</p>
         </div>
         <textarea
