@@ -1,7 +1,7 @@
 import asyncHandler from "express-async-handler";
 import { Request, Response } from "express";
 
-import { prisma } from "../config/prismaConfig";
+import { prisma } from "../config/prisma.config";
 
 export const createUser = asyncHandler(async (req: Request, res: Response) => {
   console.log("creating a user");

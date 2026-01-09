@@ -1,7 +1,7 @@
 import asyncHandler from "express-async-handler";
 import { Request, Response } from "express";
 import { sample_secrets } from "../data";
-import { prisma } from "../config/prismaConfig";
+import { prisma } from "../config/prisma.config";
 import { SecretStatus } from "@prisma/client";
 
 export const getSecrets = asyncHandler(async (req: Request, res: Response) => {

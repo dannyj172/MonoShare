@@ -1,5 +1,4 @@
 import { Router } from "express";
-import asyncHandler from "express-async-handler";
 
 import { sample_secrets } from "../data";
 import { getSecrets } from "../controller/secretCntrl";
@@ -7,20 +6,6 @@ import { getSecrets } from "../controller/secretCntrl";
 import { HTTP_BAD_REQUEST } from "../constants/http_status";
 
 const router = Router();
-
-// router.get(
-//   "/seed",
-//   asyncHandler(async (req, res) => {
-//     const postsCount = await PostModel.countDocuments();
-//     if (postsCount > 0) {
-//       res.send("Seed is already done!");
-//       return;
-//     }
-
-//     await PostModel.create(sample_posts);
-//     res.send("Seed Is Done!");
-//   })
-// );
 
 router.get("/", getSecrets);
 
