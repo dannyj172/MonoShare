@@ -16,6 +16,7 @@
     "src/**/*",
     "src/config/prisma.config.ts",
     "src/prisma",
-    "prisma/seed.ts"
+    "prisma/seed.ts",
+    "src/types"
   ]
 }

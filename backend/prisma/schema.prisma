@@ -14,36 +14,42 @@ enum SecretStatus {
 }
 
 model User {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  email        String   @unique
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  email        String    @unique
   passwordHash String
-  ownedSecrets Secret[] @relation("UserSecrets")
+  ownedSecrets Secret[]  @relation("UserSecrets")
+  sessions     Session[]
+
+  @@index([id])
 }
 
 model Secret {
-  id        String       @id @default(auto()) @map("_id") @db.ObjectId
-  text      String
-  receiver  String?
-  status    SecretStatus
-  // expired   Boolean
-  expiresAt DateTime
-  viewedAt  DateTime?
-  creatorId String       @db.ObjectId
-  creator   User         @relation("UserSecrets", fields: [creatorId], references: [id])
-  createdAt DateTime     @default(now())
-  updatedAt DateTime     @updatedAt
+  id            String       @id @default(auto()) @map("_id") @db.ObjectId
+  textHash      String
+  receiverEmail String?
+  status        SecretStatus
+  creatorId     String       @db.ObjectId
+  creator       User         @relation("UserSecrets", fields: [creatorId], references: [id])
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  expiresAt     DateTime
+  viewedAt      DateTime?
 
-  @@index([creatorId, status])
+  @@index([creatorId])
+  @@index([status])
 }
 
-// model Session {
-//   id        String   @id @default(cuid())
-//   userId    String   @db.ObjectId
-//   user      User     @relation(fields: [userId], references: [id])
-//   createdAt DateTime @default(now())
-//   expiresAt DateTime
+model Session {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  tokenHash String   @unique
+  userId    String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  expiresAt DateTime
 
-//   @@index([userId])
-// }
+  @@index([userId])
+  @@index([expiresAt])
+}
 
 // creating secrets will be done by injecting userId using an auth middleware
+//npx prisma generate

@@ -1,6 +1,9 @@
 import dotenv from "dotenv";
 dotenv.config();
 // import path from "path";
+if (!process.env.SESSION_SECRET) {
+  throw new Error("SESSION_SECRET is not set");
+}
 import express from "express";
 import cors from "cors";
 import { secretsRoute } from "./routers/secret.router";
@@ -11,7 +14,7 @@ app.use(
   cors({
     credentials: true,
     origin: ["http://localhost:4200"],
-  })
+  }),
 );
 
 app.use(express.static("public"));

@@ -1,9 +1,10 @@
 import { Router } from "express";
-import { getSecrets } from "../controller/secretCntrl";
+import { getSecrets } from "../controllers/secret.controller";
+import { requireAuth } from "../middleware/auth.middleware";
 
 const router = Router();
 
-router.get("/", getSecrets);
+router.get("/", requireAuth, getSecrets);
 
 // router.get(
 //   "/:id",
