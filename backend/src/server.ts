@@ -5,11 +5,13 @@ if (!process.env.SESSION_SECRET) {
   throw new Error("SESSION_SECRET is not set");
 }
 import express from "express";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import { secretsRoute } from "./routers/secret.router";
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 app.use(
   cors({
     credentials: true,

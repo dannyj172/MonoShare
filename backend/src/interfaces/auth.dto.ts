@@ -3,6 +3,7 @@ import { Request } from "express";
 export interface AuthDto {
   email: string;
   password: string;
+  confirm?: string;
 }
 
 export interface SessionDto {
