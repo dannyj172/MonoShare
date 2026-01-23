@@ -2,7 +2,7 @@ import asyncHandler from "express-async-handler";
 import { Request, Response } from "express";
 import { prisma } from "../../prisma/prisma-client";
 import { SecretStatus } from "@prisma/client";
-import { CreateSecretDto } from "../interfaces/secret.dto";
+import { CreateSecretDto } from "../dtos/secret.dto";
 import { HTTP_NOT_FOUND } from "../constants/http_status";
 
 export const getSecrets = asyncHandler(async (req: Request, res: Response) => {

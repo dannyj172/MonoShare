@@ -21,7 +21,7 @@ export const requireAuth = async (
   });
 
   if (!session || session.expiresAt < new Date()) {
-    return res.status(401).end();
+    return res.status(401).json({ message: "Invalid session." });
   }
 
   req.user = session.user;
