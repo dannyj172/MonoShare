@@ -6,7 +6,7 @@ const BackButton = () => {
       <svg
         stroke="currentColor"
         fill="currentColor"
-        stroke-width="0"
+        strokeWidth="0"
         viewBox="0 0 256 512"
         height="2em"
         width="2em"

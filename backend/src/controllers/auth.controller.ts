@@ -127,7 +127,7 @@ export const signinUser = asyncHandler(
         expiresAt,
       },
     });
-
+    console.log(token);
     res
       .status(HTTP_SUCCESS)
       .cookie("session", token, {
