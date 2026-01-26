@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import BackButton from "../../partials/BackButton";
+import { useSignin } from "../../../hooks/useSignin";
 
 const SignIn = () => {
   const [createFormData, setCreateFormData] = useState({
@@ -14,32 +15,14 @@ const SignIn = () => {
     setCreateFormData({ ...createFormData, [name]: value });
   };
 
+  const { mutate: signinMutate, isPending: isSigningIn } = useSignin();
+
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    signinMutate(createFormData);
 
-    //todo switch to axios
-    try {
-      const response = await fetch("http://localhost:8001/api/auth/signin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(createFormData),
-        credentials: "include",
-      });
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        alert(result.message);
-        return;
-      }
-
-      console.log("message:", result.message);
-      console.log("Signed in user:", result.user);
-    } catch (error) {
-      console.error("error:", error);
-    }
+    // console.log("message:", result.message);
+    // console.log("Signed in user:", result.user);
   };
 
   return (
@@ -169,7 +152,7 @@ const SignIn = () => {
             </div>
           </div>
           <button className="noto-sans w-full py-3 mt-6 text-sm font-medium cursor-pointer bg-(--white) text-black rounded-lg">
-            Sign In
+            {isSigningIn ? "Authenticating..." : "Sign In"}
           </button>
         </form>
         <div className="m-auto mt-5">

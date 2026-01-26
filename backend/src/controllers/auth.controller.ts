@@ -127,7 +127,7 @@ export const signinUser = asyncHandler(
         expiresAt,
       },
     });
-    console.log(token);
+
     res
       .status(HTTP_SUCCESS)
       .cookie("session", token, {
@@ -146,15 +146,18 @@ export const signinUser = asyncHandler(
 
 //* LOGOUT
 export const logoutUser = asyncHandler(async (req: Request, res: Response) => {
-  if (!req.session) {
-    res.status(HTTP_UNAUTHORIZED).send({ message: "Unable to logout" });
-    return;
-  }
-
-  const tokenHash = req.session.tokenHash;
+  const tokenHash = req.session!.tokenHash;
 
   await prisma.session.delete({ where: { tokenHash } });
   res.clearCookie("session");
   res.status(HTTP_SUCCESS).send({ message: "Successfully logged out" });
+  return;
+});
+
+//* CHECK
+export const checkUser = asyncHandler(async (req: Request, res: Response) => {
+  const user = req.user!;
+
+  res.status(HTTP_SUCCESS).json({ user });
   return;
 });

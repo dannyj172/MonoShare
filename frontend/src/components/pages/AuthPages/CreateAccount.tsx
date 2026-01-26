@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import BackButton from "../../partials/BackButton";
+import { useRegister } from "../../../hooks/useRegister";
+// import axios from "axios";
+import ErrorPopup from "../../partials/ErrorPopup";
 
 const CreateAccount = () => {
   const [createFormData, setCreateFormData] = useState({
@@ -11,7 +14,19 @@ const CreateAccount = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  const {
+    mutate: registerMutate,
+    isPending: isRegistering,
+    // error,
+    // isError,
+    reset,
+  } = useRegister();
+
+  // const errorMessage =
+  //   isError && axios.isAxiosError(error) ? error.response?.data.message : null;
+
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (isError) reset();
     const { name, value } = e.target;
     setCreateFormData({ ...createFormData, [name]: value });
   };
@@ -19,33 +34,21 @@ const CreateAccount = () => {
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    //todo switch to axios
-    try {
-      const response = await fetch("http://localhost:8001/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(createFormData),
-        credentials: "include",
-      });
+    if (
+      !createFormData.email ||
+      !createFormData.password ||
+      !createFormData.confirm
+    )
+      return;
 
-      const result = await response.json();
-
-      if (!response.ok) {
-        alert(result.message);
-        return;
-      }
-
-      console.log("message:", result.message);
-      console.log("Created user:", result.user);
-    } catch (error) {
-      console.error("error:", error);
-    }
+    registerMutate(createFormData);
+    // console.log("message:", result.message);
+    // console.log("Created user:", result.user);
   };
 
   return (
     <div className="w-screen h-screen pt-45">
+      <ErrorPopup />
       <div className="relative flex flex-col w-md h-fit rounded-xl m-auto py-8 px-8 z-10 bg-white/3 border-gray-400/20 border">
         <div className="absolute -top-15 left-0 opacity-70 hover:opacity-100">
           <BackButton />
@@ -256,7 +259,7 @@ const CreateAccount = () => {
             </div>
           </div>
           <button className="noto-sans w-full py-3 mt-6 text-sm font-medium cursor-pointer bg-(--white) text-black rounded-lg">
-            Sign In
+            {isRegistering ? "Authenticating..." : "Create Account"}
           </button>
         </form>
         <div className="m-auto mt-5">

@@ -129,9 +129,8 @@ const SecretDetails = () => {
           readOnly
           name="secret-content"
           className="bg-(--main-dark-blue-40) text-white/85 px-4 py-3 min-h-40 max-w-180 field-sizing-content rounded-md noto-sans resize-none border-2 border-white/5 outline-0"
-        >
-          Your skype password is 123123!
-        </textarea>
+          defaultValue={"Your skype password is 123123!"}
+        ></textarea>
         <div className="flex ml-auto gap-5">
           {eraseConfirmation && (
             <>

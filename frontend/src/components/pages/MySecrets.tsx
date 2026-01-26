@@ -1,5 +1,6 @@
 // import MySecretsDeletePopup from "../partials/MySecretsPartials/MySecretsDeletePopup";
 import BackButton from "../partials/BackButton";
+import UserAndLogout from "../partials/MainPartials/UserAndLogout";
 import MySecretsEmptyList from "../partials/MySecretsPartials/MySecretsEmptyList";
 import MySecretsItem from "../partials/MySecretsPartials/MySecretsItem";
 
@@ -24,6 +25,7 @@ const MySecrets = () => {
   };
   return (
     <main className="min-h-screen w-screen pb-10 bg-[#01090f]">
+      <UserAndLogout />
       {/* <MySecretsDeletePopup /> */}
       <div className="flex flex-col justify-center items-center">
         <h1 className="mt-20 electrolize font-bold">My Secrets</h1>
