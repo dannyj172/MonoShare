@@ -96,7 +96,9 @@
   }
 
   .hero-text-glow {
-    text-shadow: 0 0 30px var(--main-light-blue), 0 0 5px var(--main-light-blue);
+    text-shadow:
+      0 0 30px var(--main-light-blue),
+      0 0 5px var(--main-light-blue);
     animation: text-glow-breathe 5s ease-in-out infinite alternate;
   }
 
@@ -116,7 +118,8 @@
     );
     filter: blur(40px);
 
-    animation: glow-move 14s ease-in-out infinite alternate,
+    animation:
+      glow-move 14s ease-in-out infinite alternate,
       glow-breathe 7s ease-in-out infinite alternate;
   }
 
@@ -156,6 +159,10 @@
 
   .wave-animation {
     animation: wave-infinite 3s linear infinite alternate-reverse;
+  }
+
+  .animate-shake {
+    animation: shake 0.35s ease-in-out;
   }
 
   @keyframes wave-infinite {
@@ -405,7 +412,8 @@
     50% {
       opacity: 0.5;
       filter: blur(20px);
-      text-shadow: 0 0 0px var(--main-light-blue),
+      text-shadow:
+        0 0 0px var(--main-light-blue),
         0 0 0px var(--main-light-blue);
     }
     100% {
@@ -438,6 +446,27 @@
     }
     100% {
       background-position: 0% 0%;
+    }
+  }
+
+  @keyframes shake {
+    0% {
+      transform: translateX(0);
+    }
+    20% {
+      transform: translateX(-4px);
+    }
+    40% {
+      transform: translateX(4px);
+    }
+    60% {
+      transform: translateX(-4px);
+    }
+    80% {
+      transform: translateX(4px);
+    }
+    100% {
+      transform: translateX(0);
     }
   }
 }

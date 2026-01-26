@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import BackButton from "../../partials/BackButton";
 import { useRegister } from "../../../hooks/useRegister";
-// import axios from "axios";
-import ErrorPopup from "../../partials/ErrorPopup";
+import axios from "axios";
+import ErrorPopup from "../../partials/MainPartials/ErrorPopup";
 
 const CreateAccount = () => {
   const [createFormData, setCreateFormData] = useState({
@@ -17,13 +17,15 @@ const CreateAccount = () => {
   const {
     mutate: registerMutate,
     isPending: isRegistering,
-    // error,
-    // isError,
+    error,
+    isError,
     reset,
   } = useRegister();
 
-  // const errorMessage =
-  //   isError && axios.isAxiosError(error) ? error.response?.data.message : null;
+  const errorMessage =
+    isError && axios.isAxiosError(error) ? error.response?.data.message : null;
+
+  const errorVisibility = !!errorMessage;
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (isError) reset();
@@ -48,7 +50,11 @@ const CreateAccount = () => {
 
   return (
     <div className="w-screen h-screen pt-45">
-      <ErrorPopup />
+      <ErrorPopup
+        message={errorMessage}
+        errorVisibility={errorVisibility}
+        setErrorVisibility={reset}
+      />
       <div className="relative flex flex-col w-md h-fit rounded-xl m-auto py-8 px-8 z-10 bg-white/3 border-gray-400/20 border">
         <div className="absolute -top-15 left-0 opacity-70 hover:opacity-100">
           <BackButton />
