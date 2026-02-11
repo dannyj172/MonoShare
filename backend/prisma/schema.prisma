@@ -7,12 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum SecretStatus {
-  ACTIVE
-  VIEWED
-  EXPIRED
-}
-
 // MongoDB automatically indexes id and prisma @id maps to it so no need to index
 model User {
   id           String    @id @default(auto()) @map("_id") @db.ObjectId
@@ -24,21 +18,19 @@ model User {
 }
 
 model Secret {
-  id            String       @id @default(auto()) @map("_id") @db.ObjectId
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
   encryptedText String
   encryptionIV  String
   receiverEmail String?
-  status        SecretStatus @default(ACTIVE)
-  creatorId     String       @db.ObjectId
-  creator       User         @relation("UserSecrets", fields: [creatorId], references: [id])
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
+  creatorId     String    @db.ObjectId
+  creator       User      @relation("UserSecrets", fields: [creatorId], references: [id])
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
   expiresAt     DateTime
   viewedAt      DateTime?
 
   // @@index([expiresAt], map: "expiresAt_ttl") // MongoDB will auto-delete after this date
   @@index([creatorId])
-  @@index([status])
 }
 
 model Session {

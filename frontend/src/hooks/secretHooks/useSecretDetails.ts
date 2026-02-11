@@ -6,5 +6,6 @@ export const useSecretDetails = (id: string) => {
   return useQuery({
     queryKey: ["secret", id],
     queryFn: () => getSecretDetails(id),
+    enabled: !!id,
   });
 };

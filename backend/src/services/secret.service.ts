@@ -8,7 +8,7 @@ export const SecretService = {
     return ["1h", "1d", "7d"].includes(value);
   },
 
-  SetSecretExpirationDate(value: SecretExpirationOptions): Date {
+  setSecretExpirationDate(value: SecretExpirationOptions): Date {
     switch (value) {
       case "1h":
         return new Date(Date.now() + ONE_HOUR_MS);

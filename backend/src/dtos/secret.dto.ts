@@ -1,17 +1,16 @@
-import { SecretStatus } from "@prisma/client";
-
 export interface SecretBase {
   id: string;
   encryptedText: string;
   encryptionIV: string;
   creatorId?: string;
-  status: SecretStatus;
   createdAt: Date;
   updatedAt: Date;
   expiresAt: Date;
   viewedAt: Date | null;
   receiverEmail: string | null;
 }
+
+export type ComputedStatus = "ACTIVE" | "VIEWED" | "EXPIRED";
 
 export type SecretExpirationOptions = "1h" | "1d" | "7d";
 
@@ -22,48 +21,53 @@ export interface CreateSecretDto {
   receiverEmail?: string;
 }
 
+type WithStatus<T> = T & {
+  status: ComputedStatus;
+};
+
 export type CreateSecretResponse = {
   message: string;
-  secret: Pick<
-    SecretBase,
-    | "id"
-    | "creatorId"
-    | "status"
-    | "createdAt"
-    | "updatedAt"
-    | "expiresAt"
-    | "viewedAt"
-    | "receiverEmail"
+  secret: WithStatus<
+    Pick<
+      SecretBase,
+      | "id"
+      | "creatorId"
+      | "createdAt"
+      | "updatedAt"
+      | "expiresAt"
+      | "viewedAt"
+      | "receiverEmail"
+    >
   >;
   shareUrl: string;
 };
 
 export type MySecretsReponse = {
   userId: string;
-  ownedSecrets: Pick<
-    SecretBase,
-    "id" | "status" | "createdAt" | "expiresAt" | "viewedAt" | "receiverEmail"
+  ownedSecrets: WithStatus<
+    Pick<
+      SecretBase,
+      "id" | "createdAt" | "expiresAt" | "viewedAt" | "receiverEmail"
+    >
   >[];
 };
 
-export type ViewSecretResponse = Pick<
-  SecretBase,
-  | "id"
-  | "encryptedText"
-  | "encryptionIV"
-  | "receiverEmail"
-  | "status"
-  | "viewedAt"
+export type ViewSecretResponse = WithStatus<
+  Pick<
+    SecretBase,
+    "id" | "encryptedText" | "encryptionIV" | "receiverEmail" | "viewedAt"
+  >
 >;
 
-export type getSecretDetailsResponse = Pick<
-  SecretBase,
-  | "id"
-  | "receiverEmail"
-  | "creatorId"
-  | "status"
-  | "createdAt"
-  | "updatedAt"
-  | "expiresAt"
-  | "viewedAt"
+export type getSecretDetailsResponse = WithStatus<
+  Pick<
+    SecretBase,
+    | "id"
+    | "receiverEmail"
+    | "creatorId"
+    | "createdAt"
+    | "updatedAt"
+    | "expiresAt"
+    | "viewedAt"
+  >
 >;

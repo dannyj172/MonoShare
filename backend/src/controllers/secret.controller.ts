@@ -1,8 +1,8 @@
 import asyncHandler from "express-async-handler";
 import { Request, Response } from "express";
 import { prisma } from "../../prisma/prisma-client";
-import { SecretStatus } from "@prisma/client";
 import {
+  ComputedStatus,
   CreateSecretDto,
   CreateSecretResponse,
   getSecretDetailsResponse,
@@ -19,6 +19,7 @@ import {
 } from "../constants/http_status";
 import { SecretService } from "../services/secret.service";
 import { AppError } from "../utils/AppError";
+import { computeSecretStatus } from "../helper/computeSecretStatus";
 
 export const createSecret = asyncHandler(
   async (req: Request, res: Response<CreateSecretResponse>) => {
@@ -37,7 +38,7 @@ export const createSecret = asyncHandler(
       receiverEmail,
     });
 
-    const expiresAt = SecretService.SetSecretExpirationDate(timeTillExpiration);
+    const expiresAt = SecretService.setSecretExpirationDate(timeTillExpiration);
 
     const secret = await prisma.secret.create({
       data: {
@@ -54,12 +55,12 @@ export const createSecret = asyncHandler(
       secret: {
         id: secret.id,
         creatorId: secret.creatorId,
-        status: secret.status,
         createdAt: secret.createdAt,
         updatedAt: secret.updatedAt,
         expiresAt: secret.expiresAt,
         viewedAt: secret.viewedAt,
         receiverEmail: secret.receiverEmail,
+        status: "ACTIVE",
       },
       shareUrl: `${process.env.FRONTEND_URL}/secret/${secret.id}`,
     });
@@ -77,7 +78,6 @@ export const getMySecrets = asyncHandler(
         ownedSecrets: {
           select: {
             id: true,
-            status: true,
             createdAt: true,
             expiresAt: true,
             viewedAt: true,
@@ -91,9 +91,26 @@ export const getMySecrets = asyncHandler(
       throw new AppError("Failure to find user and/or secrets", HTTP_NOT_FOUND);
     }
 
+    const now = new Date();
+
+    const secrets = userWithSecrets.ownedSecrets.map((secret) => {
+      let computedStatus: ComputedStatus = "ACTIVE";
+
+      if (secret.expiresAt <= now) {
+        computedStatus = "EXPIRED";
+      } else if (secret.viewedAt) {
+        computedStatus = "VIEWED";
+      }
+
+      return {
+        ...secret,
+        status: computedStatus,
+      };
+    });
+
     res.status(HTTP_SUCCESS).json({
       userId: user.id,
-      ownedSecrets: userWithSecrets.ownedSecrets,
+      ownedSecrets: secrets,
     });
   },
 );
@@ -108,7 +125,6 @@ export const getSecretDetails = asyncHandler(
       select: {
         id: true,
         receiverEmail: true,
-        status: true,
         creatorId: true,
         createdAt: true,
         updatedAt: true,
@@ -125,7 +141,9 @@ export const getSecretDetails = asyncHandler(
       throw new AppError("Unauthorized to view this secret", HTTP_UNAUTHORIZED);
     }
 
-    res.status(HTTP_SUCCESS).json(secret);
+    res
+      .status(HTTP_SUCCESS)
+      .json({ ...secret, status: computeSecretStatus(secret) });
   },
 );
 
@@ -139,18 +157,20 @@ export const viewSecret = asyncHandler(
         where: { id },
       });
 
-      if (!originalSecret || originalSecret.status === SecretStatus.VIEWED) {
-        throw new AppError(
-          "Secret doesn't exist or has already been viewed",
-          HTTP_NOT_FOUND,
-        );
+      if (!originalSecret) {
+        throw new AppError("Secret doesn't exist", HTTP_NOT_FOUND);
       }
 
-      if (new Date() > originalSecret.expiresAt) {
+      const status = computeSecretStatus(originalSecret);
+
+      if (!originalSecret || status === "VIEWED") {
+        throw new AppError("Secret has already been viewed", HTTP_NOT_FOUND);
+      }
+
+      if (status === "EXPIRED") {
         await tx.secret.update({
           where: { id },
           data: {
-            status: SecretStatus.EXPIRED,
             encryptedText: "",
             encryptionIV: "",
           },
@@ -165,7 +185,6 @@ export const viewSecret = asyncHandler(
       const updatedSecret = await tx.secret.update({
         where: { id },
         data: {
-          status: SecretStatus.VIEWED,
           encryptedText: "",
           encryptionIV: "",
           viewedAt: new Date(),
@@ -176,8 +195,8 @@ export const viewSecret = asyncHandler(
         encryptedText: originalSecret.encryptedText,
         encryptionIV: originalSecret.encryptionIV,
         receiverEmail: originalSecret.receiverEmail,
-        status: updatedSecret.status,
         viewedAt: updatedSecret.viewedAt,
+        status,
       };
     });
 
