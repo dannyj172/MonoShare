@@ -18,7 +18,6 @@ const Timeline = ({
     if (!secret) return "0";
     return getTimePercentage(secret.createdAt, secret.expiresAt);
   }, [secret]);
-  console.log(timePassedPercent);
   const timeRemaining = useMemo(() => {
     if (!secret) return "";
     return calcTimeRemaining(secret.expiresAt);

@@ -38,7 +38,7 @@ const SecretTextArea = ({
   `}
         style={
           !created && status !== "VIEWED"
-            ? { textShadow: "0 0 7px rgba(255,255,255,1)" }
+            ? { textShadow: "0 0 10px rgba(255,255,255,0.8)" }
             : {}
         }
         defaultValue={secretText}

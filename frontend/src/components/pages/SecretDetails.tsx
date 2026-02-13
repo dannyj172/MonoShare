@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BackButton from "../partials/BackButton";
 import { useSecretDetails } from "../../hooks/secretHooks/useSecretDetails";
 import { useParams } from "react-router-dom";
@@ -12,6 +12,12 @@ const SecretDetails = () => {
 
   const [copyClicked, setCopyClicked] = useState(false);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setCopyClicked(false);
+    }, 8000);
+  }, [copyClicked]);
+
   const {
     data: secret,
     isPending,
@@ -19,6 +25,7 @@ const SecretDetails = () => {
     // isError
   } = useSecretDetails(id!);
 
+  //todo: show gray boxes if no secret instead of loading.
   return (
     <div className="flex flex-col w-fit md:min-w-2xl mx-auto pt-40 p-5 max-w-19/20">
       {isPending ? (
@@ -88,7 +95,7 @@ const SecretDetails = () => {
             </div>
           )}
           <div
-            className={`flex items-center justify-center rounded-md border-3 mb-2  ${
+            className={`flex items-center justify-center rounded-md border-3 mb-2 transition-all duration-600 ease-in-out ${
               copyClicked
                 ? "border-green-500 bg-green-500/15"
                 : "border-(--main-dark-blue-40) bg-blue-300/5"
@@ -102,7 +109,7 @@ const SecretDetails = () => {
                 navigator.clipboard.writeText(secretURL);
                 setCopyClicked(true);
               }}
-              className={`group cursor-pointer h-12 w-15 border-3 border-hidden flex items-center justify-center rounded-r-[3px] ${
+              className={`group cursor-pointer h-12 w-15 border-3 border-hidden flex items-center justify-center rounded-r-[3px]  transition-all duration-600 ease-in-out ${
                 copyClicked ? "bg-green-500 " : " bg-(--main-dark-blue-40)"
               }`}
             >

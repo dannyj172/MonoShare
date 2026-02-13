@@ -182,7 +182,7 @@ const CreateForm = () => {
           {/* Create Button */}
 
           <Link
-            to="/details/698cd6a1abdce125b587f007"
+            to="/details/698df3e6f93565fe48044031"
             className="group relative overflow-hidden action-btn py-2.5 px-7 border-3 rounded-xl arvo"
           >
             <span>Create</span>
